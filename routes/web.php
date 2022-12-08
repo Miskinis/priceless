@@ -26,3 +26,6 @@ Route::middleware([
         return view('dashboard');
     })->name('dashboard');
 });
+
+Route::resource('/product', \App\Http\Controllers\ProductController::class);
+Route::resource('/store', \App\Http\Controllers\StoreController::class);
