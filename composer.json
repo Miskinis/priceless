@@ -13,6 +13,7 @@
         "laravel/tinker": "^2.7",
         "livewire/livewire": "^2.5",
         "okipa/laravel-table": "^5.2",
+        "protonemedia/laravel-form-components": "^3.6",
         "whitecube/laravel-prices": "^0.0.6"
     },
     "require-dev": {

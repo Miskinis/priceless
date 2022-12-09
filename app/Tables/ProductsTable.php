@@ -3,31 +3,42 @@
 namespace App\Tables;
 
 use App\Models\Product;
+use Illuminate\Support\Facades\Auth;
 use Okipa\LaravelTable\Abstracts\AbstractTableConfiguration;
 use Okipa\LaravelTable\Column;
 use Okipa\LaravelTable\Formatters\DateFormatter;
 use Okipa\LaravelTable\RowActions\DestroyRowAction;
 use Okipa\LaravelTable\RowActions\EditRowAction;
+use Okipa\LaravelTable\RowActions\ShowRowAction;
 use Okipa\LaravelTable\Table;
 
 class ProductsTable extends AbstractTableConfiguration
 {
     protected function table(): Table
     {
-        return Table::make()->model(Product::class)
+        return Table::make()
+            ->model(Product::class)
             ->rowActions(fn(Product $product) => [
+                new ShowRowAction(route('product.show', $product)),
                 new EditRowAction(route('product.edit', $product)),
-                new DestroyRowAction(),
+                (new DestroyRowAction())
+                    // Override the action default confirmation question
+                    // Or set `false` if you do not want to require any confirmation for this action
+                    ->confirmationQuestion('Are you sure you want to delete product ' . $product->name . '?')
+                    // Override the action default feedback message
+                    // Or set `false` if you do not want to trigger any feedback message for this action
+                    ->feedbackMessage('Product ' . $product->name . ' has been deleted.'),
             ]);
     }
 
     protected function columns(): array
     {
         return [
-            Column::make('id')->sortable(),
-            Column::make('name')->sortable(),
-            Column::make('created_at')->format(new DateFormatter('d/m/Y H:i'))->sortable(),
-            Column::make('updated_at')->format(new DateFormatter('d/m/Y H:i'))->sortable()->sortByDefault('desc'),
+            Column::make('id')->sortable()->title('id'),
+            Column::make('name')->sortable()->title('name'),
+            Column::make('priceMajor')->sortable()->title('price'),
+            Column::make('priceCurrency')->sortable()->title('Currency'),
+            Column::make('updated_at')->format(new DateFormatter('d/m/Y H:i'))->sortable()->sortByDefault('desc')->title('updated at'),
         ];
     }
 
