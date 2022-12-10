@@ -21,14 +21,6 @@
                             <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">{{$product->name}}</dd>
                         </div>
                         <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                            <dt class="text-sm font-medium text-gray-500">Price</dt>
-                            <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">{{$product->priceMajor}}</dd>
-                        </div>
-                        <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                            <dt class="text-sm font-medium text-gray-500">Currency</dt>
-                            <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">{{$product->priceCurrency}}</dd>
-                        </div>
-                        <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                             <dt class="text-sm font-medium text-gray-500">Created at</dt>
                             <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">{{$product->created_at}}</dd>
                         </div>
@@ -48,8 +40,14 @@
                         </x-form>
                     </button>
                 </div>
+            </div>
+        </div>
+    </div>
 
-
+    <div class="py-12">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg p-6">
+                <livewire:table :config="App\Tables\ProductsStoresTable::class" :configParams="['product_id' => 1]"/>
             </div>
         </div>
     </div>

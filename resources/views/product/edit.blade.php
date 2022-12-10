@@ -11,7 +11,6 @@
                 <x-form :action="route('product.update', $product)" method="PUT">
                     @bind($product)
                     <x-form-input name="name" label="Name" />
-                    <x-form-input name="price" label="Price" placeholder="99.99" :value="$product->priceMajor == null ? '' : $product->priceMajor"/>
 
                     <x-form-submit />
                     @endbind

@@ -9,8 +9,21 @@ class Store extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'name',
+        'created_at',
+        'updated_at',
+    ];
+
+    protected $casts = ['products.pivot.id' => 'string'];
+
+    public $timestamps = true;
+
     public function products()
     {
-        return $this->belongsToMany(Product::class);
+        return $this->belongsToMany(Product::class)
+            ->using(ProductStore::class)
+            ->withPivot('price')
+            ->withTimestamps();
     }
 }

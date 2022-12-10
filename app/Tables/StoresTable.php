@@ -8,6 +8,7 @@ use Okipa\LaravelTable\Column;
 use Okipa\LaravelTable\Formatters\DateFormatter;
 use Okipa\LaravelTable\RowActions\DestroyRowAction;
 use Okipa\LaravelTable\RowActions\EditRowAction;
+use Okipa\LaravelTable\RowActions\ShowRowAction;
 use Okipa\LaravelTable\Table;
 
 class StoresTable extends AbstractTableConfiguration
@@ -16,17 +17,24 @@ class StoresTable extends AbstractTableConfiguration
     {
         return Table::make()->model(Store::class)
             ->rowActions(fn(Store $store) => [
+                new ShowRowAction(route('store.show', $store)),
                 new EditRowAction(route('store.edit', $store)),
-                new DestroyRowAction(),
+                (new DestroyRowAction())
+                    // Override the action default confirmation question
+                    // Or set `false` if you do not want to require any confirmation for this action
+                    ->confirmationQuestion('Are you sure you want to delete store ' . $store->name . '?')
+                    // Override the action default feedback message
+                    // Or set `false` if you do not want to trigger any feedback message for this action
+                    ->feedbackMessage('Store ' . $store->name . ' has been deleted.'),
             ]);
     }
 
     protected function columns(): array
     {
         return [
-            Column::make('id')->sortable(),
-            Column::make('created_at')->format(new DateFormatter('d/m/Y H:i'))->sortable(),
-            Column::make('updated_at')->format(new DateFormatter('d/m/Y H:i'))->sortable()->sortByDefault('desc'),
+            Column::make('id')->sortable()->title('Id'),
+            Column::make('name')->sortable()->title('Name'),
+            Column::make('updated_at')->format(new DateFormatter('d/m/Y H:i'))->sortable()->sortByDefault('desc')->title('Updated at'),
         ];
     }
 

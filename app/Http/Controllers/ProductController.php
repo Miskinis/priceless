@@ -35,8 +35,7 @@ class ProductController extends Controller
     public function store(StoreProductRequest $request)
     {
         $validated = $request->validated();
-        $validated['price'] = new Price(amount: $validated['price'], currency: 'EUR', type: 'selling');
-        $product = Product::create();
+        $product = Product::create($validated);
         Session::flash('success', 'Created Successful!');
         return redirect()->route('product.show', $product);
     }
@@ -66,11 +65,6 @@ class ProductController extends Controller
     public function update(UpdateProductRequest $request, Product $product)
     {
         $validated = $request->validated();
-        $validated['price'] = new Price(
-            amount: $validated['price'],
-            currency: 'EUR',
-            type: 'selling',
-            activated_at: now());
         $product->update($validated);
         Session::flash('success', 'Update Successful!');
         return redirect()->route('product.show', $product);

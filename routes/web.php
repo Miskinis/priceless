@@ -29,3 +29,4 @@ Route::middleware([
 
 Route::resource('/product', \App\Http\Controllers\ProductController::class);
 Route::resource('/store', \App\Http\Controllers\StoreController::class);
+Route::resource('/product-store', \App\Http\Controllers\ProductStoreController::class);
