@@ -6,14 +6,17 @@
     "license": "MIT",
     "require": {
         "php": "^8.0.2",
+        "consoletvs/charts": "6.*",
         "guzzlehttp/guzzle": "^7.2",
         "laravel/framework": "^9.19",
         "laravel/jetstream": "^2.12",
         "laravel/sanctum": "^3.0",
         "laravel/tinker": "^2.7",
+        "laraveldaily/laravel-charts": "^0.1.29",
         "livewire/livewire": "^2.5",
         "okipa/laravel-table": "^5.2",
         "protonemedia/laravel-form-components": "^3.6",
+        "spatie/crawler": "^7.1",
         "thiagoprz/eloquent-composite-key": "^1.0",
         "whitecube/laravel-prices": "^0.0.6"
     },

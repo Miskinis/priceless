@@ -18,9 +18,7 @@ class CreateProductStorePivotTable extends Migration
             $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
             $table->unsignedBigInteger('store_id')->index();
             $table->foreign('store_id')->references('id')->on('stores')->onDelete('cascade');
-//            $table->primary(['product_id', 'store_id']);
             $table->uuid('id');
-//            $table->unsignedBigInteger('id');
             $table->primary('id');
             $table->timestamps();
         });

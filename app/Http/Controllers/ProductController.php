@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Charts\PriceChart;
 use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
 use App\Models\Product;
+use App\Models\ProductStore;
 use Illuminate\Support\Facades\Session;
+use LaravelDaily\LaravelCharts\Classes\LaravelChart;
 use Whitecube\LaravelPrices\Models\Price;
 
 class ProductController extends Controller
@@ -46,7 +49,42 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
-        return view('product.show', compact('product'));
+        $chart = new PriceChart;
+
+        // Generate random colours for the groups
+        for ($i=0; $i<=3; $i++) {
+            $colors[] = '#' . substr(str_shuffle('ABCDEF0123456789'), 0, 6);
+        }
+        $chart->colors = $colors;
+
+//        $groups = ProductStore::where('product_id', '=', $product->id)
+//            ->latest()
+//            ->get()
+//            ->groupBy(function($item)
+//            {
+//                return $item->created_at->format('d-M-y');
+//            });
+//
+//        $chart->labels($groups->keys());
+        foreach ($product->stores as $store) {
+            $groups = $store->pivot
+                ->prices()
+                ->latest()
+                ->selectRaw('created_at, round(amount / 100, 2) as amount')
+                ->get()
+                ->groupBy(function($item)
+                {
+                    return $item->created_at->format('M-Y');
+                });
+            $labels = [];
+            foreach ($groups as $key => $value) {
+                $labels[] = $key;
+                $chart->dataset($store->name, 'bar', $value->pluck('amount'));
+            }
+            $chart->labels($labels);
+        }
+
+        return view('product.show', compact(['product', 'chart']));
     }
 
     /**

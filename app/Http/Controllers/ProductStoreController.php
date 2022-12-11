@@ -50,7 +50,7 @@ class ProductStoreController extends Controller
         ], [
             $validated['price']
         ]);
-        $productStore->setPriceAttribute($validated['price']);
+//        $productStore->setPriceAttribute($validated['price']);
         Session::flash('success', 'Created Successful!');
         return redirect()->route('product-store.show', $productStore);
     }
@@ -82,13 +82,13 @@ class ProductStoreController extends Controller
     public function update(UpdateProductStoreRequest $request, ProductStore $productStore)
     {
         $validated = $request->validated();
-        $price = new Price(amount: $validated['price'],
+        $validated['price'] = new Price(amount: $validated['price'],
             currency: $validated['currency'],
             type: 'selling',
             activated_at: now());
-        unset($validated['price']);
+//        unset($validated['price']);
         ProductStore::update($validated);
-        $productStore->setPriceAttribute($price);
+//        $productStore->setPriceAttribute($price);
         Session::flash('success', 'Created Successful!');
         return redirect()->route('product-store.show', $productStore);
     }

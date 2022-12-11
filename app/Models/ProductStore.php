@@ -6,6 +6,7 @@ use App\Traits\UuidTrait;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Relations\Pivot;
 use Whitecube\LaravelPrices\HasPrices;
+use Whitecube\LaravelPrices\Models\Price;
 
 class ProductStore extends Pivot
 {
@@ -22,6 +23,16 @@ class ProductStore extends Pivot
 
     public $timestamps = true;
 
+    public function product()
+    {
+        return $this->belongsTo(Product::class);
+    }
+
+    public function store()
+    {
+        return $this->belongsTo(Store::class);
+    }
+
     public function productName(): Attribute
     {
         return Attribute::make(
@@ -34,6 +45,16 @@ class ProductStore extends Pivot
         return Attribute::make(
             get: fn($value) => Store::where('id', '=', $this->store_id)->value('name'),
         );
+    }
+
+    /**
+     * The current price model
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\MorphOne
+     */
+    public function price()
+    {
+        return $this->morphOne(Price::class, 'priceable')->where('type', $this->getDefaultPriceType())->latest();
     }
 
     public function priceMajor(): Attribute

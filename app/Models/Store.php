@@ -23,7 +23,7 @@ class Store extends Model
     {
         return $this->belongsToMany(Product::class)
             ->using(ProductStore::class)
-            ->withPivot('price')
+            ->withPivot('id')
             ->withTimestamps();
     }
 }

@@ -45,11 +45,11 @@ class ProductsStoresTable extends AbstractTableConfiguration
     protected function columns(): array
     {
         return [
-            Column::make('priceMajor')->sortable()->title('Price'),
-            Column::make('priceCurrency')->sortable()->title('Currency'),
-            Column::make('productName')->sortable()->title('Product'),
-            Column::make('storeName')->sortable()->title('Store'),
-            Column::make('updated_at')->format(new DateFormatter('d/m/Y H:i'))->sortable()->sortByDefault('desc')->title('Updated at'),
+            Column::make('priceMajor')->title('Price'),
+            Column::make('priceCurrency')->title('Currency'),
+            Column::make('productName')->title('Product'),
+            Column::make('storeName')->title('Store'),
+            Column::make('created_at')->format(new DateFormatter('d/m/Y H:i'))->sortable()->sortByDefault('desc')->title('Updated at'),
         ];
     }
 
