@@ -27,7 +27,9 @@ class StoreProductStoreRequest extends FormRequest
             'price' => 'required|numeric',
             'currency' => 'required|string',
             'product_id' => 'required|numeric',
-            'store_id' => 'required|numeric'
+            'store_id' => 'required|numeric',
+            'url' => 'string',
+            'price_xpath' => 'string'
         ];
     }
 }
