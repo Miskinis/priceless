@@ -9,7 +9,7 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg p-6">
                 <x-form :action="route('product.store')" method="POST">
-                    <x-form-input name="name" label="Name" />
+                    <x-form-input name="name" :label="__('Name')" />
 
                     <x-form-submit />
                 </x-form>

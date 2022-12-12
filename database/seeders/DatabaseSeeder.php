@@ -6,8 +6,8 @@ namespace Database\Seeders;
 use App\Models\Product;
 use App\Models\ProductStore;
 use App\Models\Store;
+use App\Models\User;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Carbon;
 use Whitecube\LaravelPrices\Models\Price;
 
 class DatabaseSeeder extends Seeder
@@ -19,10 +19,10 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-//        $this->call([
-//            StoreSeeder::class,
-////            ProductSeeder::class,
-//        ]);
+        User::factory()->create([
+            'name' => 'Test User',
+            'email' => 'test@example.com',
+        ]);
 
         $stores = Store::factory()->count(4)->create();
         $products = Product::factory()->count(4)->create();
@@ -56,11 +56,55 @@ class DatabaseSeeder extends Seeder
             }
         }
 
-        // \App\Models\User::factory(10)->create();
+        $product = Product::create([
+            'name' => 'PowerColor Radeon RX 6600 Fighter 8GB DDR6'
+        ]);
+        $store = Store::create([
+            'name' => 'Baitukas.lt'
+        ]);
+        $price = new Price(amount: 291.90,
+            currency: 'EUR',
+            type: 'selling',
+            activated_at: now());
+        $productStore = ProductStore::updateOrCreate([
+            'product_id' => $product->id,
+            'store_id' => $store->id
+        ], [
+            'url' => 'https://www.kaina24.lt/p/powercolor-radeon-rx-6600-fighter-8gb-ddr6',
+            'price_xpath' => '/html/body/div[1]/div[2]/div[2]/div[1]/div[2]/div[2]/div/div/div[1]/table/tbody/tr/td[5]/a/div/span[1]',
+        ]);
+        $productStore->setPriceAttribute($price);
 
-         \App\Models\User::factory()->create([
-             'name' => 'Test User',
-             'email' => 'test@example.com',
-         ]);
+        $store = Store::create([
+            'name' => 'Pirmi.lt'
+        ]);
+        $price = new Price(amount: 294.37,
+            currency: 'EUR',
+            type: 'selling',
+            activated_at: now());
+        $productStore = ProductStore::updateOrCreate([
+            'product_id' => $product->id,
+            'store_id' => $store->id
+        ], [
+            'url' => 'https://www.kaina24.lt/p/powercolor-radeon-rx-6600-fighter-8gb-ddr6',
+            'price_xpath' => '/html/body/div[1]/div[2]/div[2]/div[1]/div[2]/div[2]/div/div/div[2]/table/tbody/tr/td[5]/a/div/span[1]',
+        ]);
+        $productStore->setPriceAttribute($price);
+
+        $store = Store::create([
+            'name' => 'Sinerta.lt'
+        ]);
+        $price = new Price(amount: 294.66,
+            currency: 'EUR',
+            type: 'selling',
+            activated_at: now());
+        $productStore = ProductStore::updateOrCreate([
+            'product_id' => $product->id,
+            'store_id' => $store->id
+        ], [
+            'url' => 'https://www.kaina24.lt/p/powercolor-radeon-rx-6600-fighter-8gb-ddr6',
+            'price_xpath' => '/html/body/div[1]/div[2]/div[2]/div[1]/div[2]/div[2]/div/div/div[3]/table/tbody/tr/td[5]/a/div/span[1]',
+        ]);
+        $productStore->setPriceAttribute($price);
     }
 }

@@ -9,6 +9,7 @@
         "ext-dom": "*",
         "consoletvs/charts": "6.*",
         "guzzlehttp/guzzle": "^7.2",
+        "joggapp/laravel-google-translate": "^8.1",
         "laravel/framework": "^9.19",
         "laravel/jetstream": "^2.12",
         "laravel/sanctum": "^3.0",

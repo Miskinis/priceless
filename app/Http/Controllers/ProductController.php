@@ -51,21 +51,6 @@ class ProductController extends Controller
     {
         $chart = new PriceChart;
 
-        // Generate random colours for the groups
-        for ($i=0; $i<=3; $i++) {
-            $colors[] = '#' . substr(str_shuffle('ABCDEF0123456789'), 0, 6);
-        }
-        $chart->colors = $colors;
-
-//        $groups = ProductStore::where('product_id', '=', $product->id)
-//            ->latest()
-//            ->get()
-//            ->groupBy(function($item)
-//            {
-//                return $item->created_at->format('d-M-y');
-//            });
-//
-//        $chart->labels($groups->keys());
         foreach ($product->stores as $store) {
             $groups = $store->pivot
                 ->prices()

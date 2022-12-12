@@ -8,12 +8,9 @@ use DOMXPath;
 use Psr\Http\Message\UriInterface;
 use Illuminate\Support\Facades\Log;
 
-use Illuminate\Support\Facades\Cache;
 use Psr\Http\Message\ResponseInterface;
 use GuzzleHttp\Exception\RequestException;
-use Spatie\Crawler\Crawler;
 use Spatie\Crawler\CrawlObservers\CrawlObserver;
-use Whitecube\Price\Price;
 
 class PriceObserver extends CrawlObserver
 {

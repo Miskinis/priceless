@@ -17,6 +17,8 @@ Route::get('/', function () {
     return view('welcome');
 })->name('home');
 
+Route::get('lang/{lang}', ['as' => 'lang.switch', 'uses' => 'App\Http\Controllers\LanguageController@switchLang']);
+
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
@@ -25,8 +27,8 @@ Route::middleware([
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');
-});
 
-Route::resource('/product', \App\Http\Controllers\ProductController::class);
-Route::resource('/store', \App\Http\Controllers\StoreController::class);
-Route::resource('/product-store', \App\Http\Controllers\ProductStoreController::class);
+    Route::resource('/product', \App\Http\Controllers\ProductController::class);
+    Route::resource('/store', \App\Http\Controllers\StoreController::class);
+    Route::resource('/product-store', \App\Http\Controllers\ProductStoreController::class);
+});

@@ -10,7 +10,7 @@
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg p-6">
                 <x-form :action="route('store.update', $store)" method="PUT">
                     @bind($store)
-                    <x-form-input name="name" label="Name" />
+                    <x-form-input name="name" :label="__('Name')" />
 
                     <x-form-submit />
                     @endbind

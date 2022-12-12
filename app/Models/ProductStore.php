@@ -15,6 +15,8 @@ class ProductStore extends Pivot
 
     protected $fillable = [
         'price',
+        'url',
+        'price_xpath',
         'product_id',
         'store_id',
         'created_at',
