@@ -4,6 +4,10 @@
 * Site tries to display price change history.
 * Price gets crawled daily (auto).
 
+# Dependencies
+* Ubuntu OS.
+* Docker engine.
+
 # Run
 * `git clone https://github.com/Miskinis/priceless.git`
 * `cd microblog`
