@@ -10,7 +10,7 @@
 
 # Run
 * `git clone https://github.com/Miskinis/priceless.git`
-* `cd microblog`
+* `cd priceless`
 * `sudo chown -R $USER:www-data .`
 * `sudo find . -type f -exec chmod 664 {} \;`
 * `sudo find . -type d -exec chmod 775 {} \;`
@@ -24,8 +24,8 @@
     laravelsail/php81-composer:latest \
     composer install --ignore-platform-reqs
     ```
-* `sail build --no-cache`
 * `alias sail='[ -f sail ] && sh sail || sh vendor/bin/sail'`
+* `sail build --no-cache`
 * `sail up -d`
 * `sail npm install && sail npm run build && sail npm run dev`
 * `sail artisan migrate --seed`
